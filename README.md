@@ -1,2 +1,1 @@
-# s-calculator
-Stanford CS139p Calculator Project
+# Stanford CS139p Calculator Project
