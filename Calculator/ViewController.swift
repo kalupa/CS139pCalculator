@@ -9,6 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
+
 	@IBOutlet weak var display: UILabel!
 
 	var userIsTyping = false
@@ -16,8 +17,12 @@ class ViewController: UIViewController {
 	@IBAction func appendDigit(sender: UIButton) {
 		let digit = sender.currentTitle!
 
-		if (userIsTyping) {
-			display.text = display.text! + digit
+		if digit == "π" {
+			enter()
+			displayValue = 3.14159
+			enter()
+		} else if userIsTyping {
+			display.text = display.text! + "\(digit)"
 		} else {
 			display.text = digit
 			userIsTyping = true
@@ -27,16 +32,20 @@ class ViewController: UIViewController {
 	@IBAction func operate(sender: UIButton) {
 		let operation = sender.currentTitle!
 
+		println("\(operation)")
+
 		if userIsTyping {
 			enter()
 		}
 
 		switch operation {
-		case "×": performOperation { $0 * $1 }
-		case "÷": performOperation { $1 / $0 }
-		case "+": performOperation { $0 + $1 }
-		case "−": performOperation { $1 - $0 }
-		case "√": performOperation { sqrt($0) }
+		case "×": performOperation   { $0 * $1  }
+		case "÷": performOperation   { $1 / $0  }
+		case "+": performOperation   { $0 + $1  }
+		case "−": performOperation   { $1 - $0  }
+		case "√": performOperation   { sqrt($0) }
+		case "sin": performOperation { sin($0)  }
+		case "cos": performOperation { cos($0)  }
 		default: break
 		}
 	}
@@ -58,7 +67,7 @@ class ViewController: UIViewController {
 		}
 	}
 
-	var operandStack = Array<Double>()
+	var operandStack = [Double]()
 
 	@IBAction func enter() {
 		userIsTyping = false
