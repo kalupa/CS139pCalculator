@@ -12,21 +12,29 @@ class ViewController: UIViewController {
 
 	@IBOutlet weak var display: UILabel!
 
-	var userIsTyping = false
+	var userIsTyping    = false
 
 	@IBAction func appendDigit(sender: UIButton) {
 		let digit = sender.currentTitle!
 
 		if digit == "π" {
+			enter() // force previous digit to be pushed to stack
+			displayValue = M_PI
 			enter()
-			displayValue = 3.14159
-			enter()
+		} else if digit == "." {
+			if !contains(display.text!, ".") {
+				display.text = display.text! + "."
+				userIsTyping = true
+			}
 		} else if userIsTyping {
 			display.text = display.text! + "\(digit)"
+		} else if digit == "0" {
+			//noop
 		} else {
 			display.text = digit
 			userIsTyping = true
 		}
+
 	}
 
 	@IBAction func operate(sender: UIButton) {
@@ -72,6 +80,7 @@ class ViewController: UIViewController {
 	@IBAction func enter() {
 		userIsTyping = false
 		operandStack.append(displayValue)
+
 		println("\(operandStack)")
 	}
 
