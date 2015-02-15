@@ -12,14 +12,15 @@ class ViewController: UIViewController {
 
 	@IBOutlet weak var display: UILabel!
 
-	var userIsTyping    = false
+	var userIsTyping = false
+	let π = M_PI
 
 	@IBAction func appendDigit(sender: UIButton) {
 		let digit = sender.currentTitle!
 
 		if digit == "π" {
 			enter() // force previous digit to be pushed to stack
-			displayValue = M_PI
+			displayValue = π
 			enter()
 		} else if digit == "." {
 			if !contains(display.text!, ".") {
